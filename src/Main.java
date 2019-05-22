@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-	  JFrame frame = new JFrame("Trillo");
+	  JFrame frame = new JFrame("BlockBreaker");
       BlockBreakerPanel panel =  new BlockBreakerPanel();
 
       frame.getContentPane().add(panel);

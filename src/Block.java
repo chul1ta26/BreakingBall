@@ -23,7 +23,6 @@ public class Block extends Rectangle {
 		try {
 			pic = ImageIO.read(new File("src/" + s));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
