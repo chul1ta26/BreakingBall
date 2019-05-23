@@ -70,17 +70,23 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 	
 	
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
+	
 	public void update() {
 		ball.x += ball.movX;
 		
 		if (ball.x > (getWidth() - 25)|| ball.x  < 0) {
 			ball.movX*=-1;
 		}
+		
+		
+		if (ball.y < 0 || ball.intersects(paddle)) {
+			ball.movY *=-1;
+			}
+		
+		
+		ball.y += ball.movY;
 		repaint();
 		
 	}
