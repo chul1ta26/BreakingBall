@@ -35,7 +35,7 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 			new Thread(() -> {
 				while (true) {
 					update();
-					System.out.println("running");
+					
 					try {
 						Thread.sleep(10);
 					} catch(InterruptedException err) {
@@ -47,7 +47,12 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 				
 			
 		}
-		
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT && paddle.x < (getWidth()- paddle.width)) {
+		paddle.x+= 15;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_LEFT && paddle.x >0) {
+			paddle.x-= 15;
+			}
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 	}
 
 	public void update() {
-		// TODO Auto-generated method stub
+		repaint();
 		
 	}
 
