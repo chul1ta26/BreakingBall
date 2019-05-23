@@ -3,16 +3,26 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class BlockBreakerPanel extends JPanel implements KeyListener {
 	
-	ArrayList<Block> blocks = new ArrayList<Block>();
-	Block ball = new Block(237, 435, 35, 25, "ball.png");
-	Block paddle = new Block(175,480,150,25, "paddle.png");
+	ArrayList<Block> blocks;
+	Block ball;
+	Block paddle;
 	
+	JFrame mainFrame, startScreen;
 	
-	public BlockBreakerPanel(){
+	Thread thread;
+	
+	void reset() {
+		blocks = new ArrayList<Block> ();
+		ball = new Block(237, 435, 35, 25, "ball.png");
+		paddle = new Block(175,480,150,25, "paddle.png");
+		
+		
+		
 		for(int i =0; i<8; i++) 
 			blocks.add(new Block((i*60+3),25,58,25,"red.png"));
 		for(int i =0; i<8; i++) 
@@ -24,6 +34,32 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 
 		addKeyListener(this);
 		setFocusable(true);	
+	}
+	
+	
+	
+	public BlockBreakerPanel(JFrame frame, JFrame startScreen){
+		this.mainFrame = frame;
+		this.startScreen = startScreen;
+		
+		reset();
+		 thread = new Thread(() -> {
+				while (true) {
+					update();
+					
+					try {
+						Thread.sleep(10);
+					} catch(InterruptedException err) {
+						err.printStackTrace();
+					}
+				}
+				
+			});
+			 thread.start();
+		
+		
+		
+		
 	}
 	
 	
@@ -42,28 +78,12 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()== KeyEvent.VK_ENTER) {
-
-			new Thread(() -> {
-				while (true) {
-					update();
-					
-					try {
-						Thread.sleep(10);
-					} catch(InterruptedException err) {
-						err.printStackTrace();
-					}
-				}
-				
-			}).start(); 
-				
-			
-		}
+		
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT && paddle.x < (getWidth()- paddle.width)) {
-		paddle.x+= 60;
+		paddle.x+= 15;
 		}
 		if(e.getKeyCode() == KeyEvent.VK_LEFT && paddle.x > 0) {
-			paddle.x-= 60;
+			paddle.x-= 15;
 			}
 	}
 
@@ -87,6 +107,16 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 		
 		
 		ball.y += ball.movY;
+		
+		if (ball.y > getHeight()) {
+			thread = null;
+			reset();
+			mainFrame.setVisible(false);
+			
+			startScreen.setVisible(true);
+		}
+		
+		
 		blocks.forEach(block -> {
 			if(ball.intersects(block) && !block.destroyed) {
 				block.destroyed = true;
