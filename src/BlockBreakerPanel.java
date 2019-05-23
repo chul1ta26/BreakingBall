@@ -60,10 +60,10 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT && paddle.x < (getWidth()- paddle.width)) {
-		paddle.x+= 15;
+		paddle.x+= 60;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT && paddle.x >0) {
-			paddle.x-= 15;
+		if(e.getKeyCode() == KeyEvent.VK_LEFT && paddle.x > 0) {
+			paddle.x-= 60;
 			}
 	}
 
@@ -87,6 +87,13 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 		
 		
 		ball.y += ball.movY;
+		blocks.forEach(block -> {
+			if(ball.intersects(block) && !block.destroyed) {
+				block.destroyed = true;
+				ball.movY *= -1;
+			}
+		});		
+		
 		repaint();
 		
 	}
