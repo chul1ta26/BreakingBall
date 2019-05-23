@@ -23,22 +23,23 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 			blocks.add(new Block((i*60+3),104,58,25,"blue.png"));
 
 		addKeyListener(this);
-		setFocusable(true);
-		
+		setFocusable(true);	
 	}
+	
+	
 	public void paintComponent(Graphics g) {
 		blocks.forEach(block -> {
 			block.draw(g, this);
 		});
 		paddle.draw(g,this);
+		ball.draw(g, this);
 	}
+	
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_ENTER) {
@@ -66,6 +67,8 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 			}
 	}
 
+	
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -73,6 +76,11 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 	}
 
 	public void update() {
+		ball.x += ball.movX;
+		
+		if (ball.x > (getWidth() - 25)|| ball.x  < 0) {
+			ball.movX*=-1;
+		}
 		repaint();
 		
 	}

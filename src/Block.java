@@ -12,11 +12,16 @@ public class Block extends Rectangle {
 	Image pic;
 	boolean destroyed;
 	
+	int movX, movY;
+	
 	
 	
 	public Block (int x, int y, int w, int h, String s) {
 		this.x = x; 
 		this.y = y;
+		
+		movX =3;
+		movY =3; 
 		
 		this.width = w;
 		this.height = h;
