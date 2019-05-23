@@ -14,7 +14,7 @@ public class Block extends Rectangle {
 	
 	
 	
-	public Block (int a, int b, int w, int h, String s) {
+	public Block (int x, int y, int w, int h, String s) {
 		this.x = x; 
 		this.y = y;
 		

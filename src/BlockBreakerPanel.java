@@ -8,17 +8,28 @@ import javax.swing.JPanel;
 public class BlockBreakerPanel extends JPanel implements KeyListener {
 	
 	ArrayList<Block> blocks = new ArrayList<Block>();
-	Block ball = new Block(237, 435, 25, 25, "ball.png");
+	Block ball = new Block(237, 435, 35, 25, "ball.png");
 	Block paddle = new Block(175,480,150,25, "paddle.png");
 	
 	
 	public BlockBreakerPanel(){
-		
+		for(int i =0; i<8; i++) 
+			blocks.add(new Block((i*60+3),25,58,25,"red.png"));
+		for(int i =0; i<8; i++) 
+			blocks.add(new Block((i*60+3),52,58,25,"green.png"));
+		for(int i =0; i<8; i++) 
+			blocks.add(new Block((i*60+3),79,58,25,"yellow.png"));
+		for(int i =0; i<8; i++) 
+			blocks.add(new Block((i*60+3),104,58,25,"blue.png"));
+
 		addKeyListener(this);
 		setFocusable(true);
 		
 	}
 	public void paintComponent(Graphics g) {
+		blocks.forEach(block -> {
+			block.draw(g, this);
+		});
 		paddle.draw(g,this);
 	}
 
